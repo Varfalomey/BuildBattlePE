@@ -1,0 +1,15 @@
+name: BuildBattle
+main: BuildBattle\Main
+version: "1.0.0"
+api: 1.0.0
+author: "https://vk.com/varfalomey_dev"
+
+commands:
+ bb:
+  description: "Войти в игру"
+  permission: buildbattle
+
+permissions:
+ buildbattle:
+    default: true
+    description: "Использование плагина"
