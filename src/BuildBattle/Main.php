@@ -40,6 +40,10 @@ class Main extends PluginBase implements Listener
         $this->bb[12] = 0; // на какой арене сейчас игроки
 
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new CallbackTask(array($this, "Popup")), 10);
+        if (!file_exists($this->getDataFolder() . "config.yml")) {
+            @mkdir($this->getDataFolder());
+            file_put_contents($this->getDataFolder() . "config.yml", $this->getResource("config.yml"));
+        }
     }
 
     public function PlayerJoinEvent(PlayerJoinEvent $event){
@@ -50,13 +54,13 @@ class Main extends PluginBase implements Listener
         }
         $p->setNameTagVisible(false);
         $p->setGamemode(0);
-        $p->teleport(new Position(100,100,100));
+        $p->teleport(new Position($this->getConfig()->get("Spawn")));
         if(count($this->getServer()->getOnlinePlayers()) >= 5){
             $this->getServer()->broadcastMessage(TextFormat::RED."Начало игры через 10 секунд!");
-            $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, 1]), 10 * 20 );
+            $this->getServer()->getScheduler()->scheduleDelayedTask(new CallbackTask([$this, "Start"]), 10 * 20 );
         } else {
             $p->sendMessage(TextFormat::GOLD.'Вы присоединились к очереди на BuildBattle.');
-            $p->sendMessage(TextFormat::GOLD.'Как число игроков достигнет 5-ти или больше, вы начнете игру.');
+            $p->sendMessage(TextFormat::GOLD.'Как число игроков достигнет 5-ти, вы начнете игру.');
         }
     }
     public function PlayerQuitEvent(PlayerQuitEvent $event){
@@ -68,11 +72,11 @@ class Main extends PluginBase implements Listener
         } else {
             $this->getServer()->broadcastMessage(TextFormat::RED."Игра началась!");
             $online = $this->getServer()->getOnlinePlayers();
-            $online[0]->teleport(new Position(100,100,100));
-            $online[1]->teleport(new Position(100,100,100));
-            $online[2]->teleport(new Position(100,100,100));
-            $online[3]->teleport(new Position(100,100,100));
-            $online[4]->teleport(new Position(100,100,100));
+            $online[0]->teleport(new Position($this->getConfig()->get("1")));
+            $online[1]->teleport(new Position($this->getConfig()->get("2")));
+            $online[2]->teleport(new Position($this->getConfig()->get("3")));
+            $online[3]->teleport(new Position($this->getConfig()->get("4")));
+            $online[4]->teleport(new Position($this->getConfig()->get("5")));
 
             $this->bb[7] = $online[0]; // ник строителя 1 постройки
             $this->bb[8] = $online[1]; // ник строителя 2 постройки
@@ -231,35 +235,35 @@ class Main extends PluginBase implements Listener
         $max = max(iterator_to_array($iterator, false));
         if((int)$this->bb[2] == $max){
             foreach($this->getServer()->getOnlinePlayers() as $p){
-                $p->teleport(new Position(100,100,100));
+                $p->teleport(new Position($this->getConfig()->get("Spawn")));
                 $p->getInventory()->addItem(Item::get(1,0,1));
                 $p->getInventory()->clearAll();
             }
             $this->getServer()->broadcastMessage(TextFormat::RED."В BuildBattle победил игрок ".$this->bb[7]);
         } elseif((int)$this->bb[3] == $max){
             foreach($this->getServer()->getOnlinePlayers() as $p){
-                $p->teleport(new Position(100,100,100));
+                $p->teleport(new Position($this->getConfig()->get("Spawn")));
                 $p->getInventory()->addItem(Item::get(1,0,1));
                 $p->getInventory()->clearAll();
             }
             $this->getServer()->broadcastMessage(TextFormat::RED."В BuildBattle победил игрок ".$this->bb[8]);
         } elseif((int)$this->bb[4] == $max){
             foreach($this->getServer()->getOnlinePlayers() as $p){
-                $p->teleport(new Position(100,100,100));
+                $p->teleport(new Position($this->getConfig()->get("Spawn")));
                 $p->getInventory()->addItem(Item::get(1,0,1));
                 $p->getInventory()->clearAll();
             }
             $this->getServer()->broadcastMessage(TextFormat::RED."В BuildBattle победил игрок ".$this->bb[9]);
         } elseif((int)$this->bb[5] == $max){
             foreach($this->getServer()->getOnlinePlayers() as $p){
-                $p->teleport(new Position(100,100,100));
+                $p->teleport(new Position($this->getConfig()->get("Spawn")));
                 $p->getInventory()->addItem(Item::get(1,0,1));
                 $p->getInventory()->clearAll();
             }
             $this->getServer()->broadcastMessage(TextFormat::RED."В BuildBattle победил игрок ".$this->bb[10]);
         } elseif((int)$this->bb[6] == $max){
             foreach($this->getServer()->getOnlinePlayers() as $p){
-                $p->teleport(new Position(100,100,100));
+                $p->teleport(new Position($this->getConfig()->get("Spawn")));
                 $p->getInventory()->addItem(Item::get(1,0,1));
                 $p->getInventory()->clearAll();
             }
