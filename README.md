@@ -2,6 +2,7 @@
 
 Minigame BuildBattle for Minecraft: Pocket Edition
 The plug on the stage of development, will soon - it will be completely ready.
+The plugin is written entirely in Russian.
 
 ![alt tag](http://www.billtownwebdesign.com/wp-content/uploads/2014/12/faq.png)
 
