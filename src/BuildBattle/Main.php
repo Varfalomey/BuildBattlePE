@@ -2,6 +2,8 @@
 
 namespace BuildBattle;
 
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
 use pocketmine\event\block\BlockBreakEvent;
 
 use pocketmine\event\block\BlockPlaceEvent;
@@ -20,6 +22,7 @@ use pocketmine\item\Item;
 
 use pocketmine\level\Position;
 
+use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 
 use pocketmine\scheduler\CallbackTask;
@@ -49,7 +52,6 @@ class Main extends PluginBase implements Listener
         $this->bb[11] = 0; // ник строителя 5 постройки
 
         $this->bb[12] = 0; // на какой арене сейчас игроки
-
         $this->getServer()->getScheduler()->scheduleRepeatingTask(new CallbackTask(array($this, "Popup")), 10);
         if (!file_exists($this->getDataFolder() . "config.yml")) {
             @mkdir($this->getDataFolder());
@@ -59,7 +61,7 @@ class Main extends PluginBase implements Listener
 
     public function PlayerJoinEvent(PlayerJoinEvent $event){
         $p = $event->getPlayer();
-        if((int)$this->bb[0] == 0){
+        if((int)$this->bb[0] != 0){
             $p->close("", TextFormat::RED."Игра уже началась!");
             return false;
         }
