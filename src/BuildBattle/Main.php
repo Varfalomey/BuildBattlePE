@@ -3,7 +3,9 @@
 namespace BuildBattle;
 
 use pocketmine\command\Command;
+
 use pocketmine\command\CommandSender;
+
 use pocketmine\event\block\BlockBreakEvent;
 
 use pocketmine\event\block\BlockPlaceEvent;
