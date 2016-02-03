@@ -3,39 +3,23 @@
 namespace BuildBattle;
 
 use pocketmine\command\Command;
-
 use pocketmine\command\CommandSender;
-
 use pocketmine\event\block\BlockBreakEvent;
-
 use pocketmine\event\block\BlockPlaceEvent;
-
 use pocketmine\event\Listener;
-
 use pocketmine\event\player\PlayerGameModeChangeEvent;
-
 use pocketmine\event\player\PlayerItemHeldEvent;
-
 use pocketmine\event\player\PlayerJoinEvent;
-
 use pocketmine\event\player\PlayerQuitEvent;
-
 use pocketmine\item\Item;
-
 use pocketmine\level\Position;
-
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
-
 use pocketmine\scheduler\CallbackTask;
-
 use pocketmine\utils\TextFormat;
-
-class Main extends PluginBase implements Listener
-{
+class Main extends PluginBase implements Listener{
     public $bb = array();
-    public function onEnable()
-    {
+    public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->bb = array();
         $this->bb[0] = 0; // запущена ли игра
